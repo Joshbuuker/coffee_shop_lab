@@ -15,3 +15,11 @@ class Customer:
     
     def get_age(self):
         return self.age
+
+    def get_energy_level(self):
+        return self.energy
+    
+    def increase_energy_level(self, drink):
+        caffeine_level = drink.caffeine_level
+        self.energy += caffeine_level
+        return self.energy
