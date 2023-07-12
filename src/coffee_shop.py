@@ -31,6 +31,8 @@ class CoffeeShop:
 	
 	def energy_check(self, customer):
 		result = customer.get_energy_level()
-		if result > 150:
+		if result >= 150:
 			return False
+		if result <= 151:
+			return True
 		
