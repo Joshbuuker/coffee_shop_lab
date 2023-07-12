@@ -6,10 +6,13 @@ from src.drink import Drink
 class TestCoffeeShop(unittest.TestCase):
     
     def setUp(self):
-        self.coffee_shop = CoffeeShop("The Prancing Pony", 100)
         self.customer = Customer("Paul", 25, 18, 120)
         self.customer2 = Customer("Mike", 10, 8, 150)
-        self.drink = Drink("Mocha", 10, 25)
+        self.drink1 = Drink("Mocha", 10, 25)
+        self.drink2 = Drink("Lemonade", 12, 70)
+        self.drink3 = Drink("Americano", 9, 40)
+        self.drink4 = Drink("White Coffee", 30, 30)
+        self.coffee_shop = CoffeeShop("The Prancing Pony", 100, [self.drink1, self.drink2, self.drink3, self.drink4])
 
 
     def test_coffee_shop_has_name(self):
@@ -28,8 +31,8 @@ class TestCoffeeShop(unittest.TestCase):
         self.assertEqual(90, self.coffee_shop.till)
     
     def test_coffee_shop_sell_drink(self):
-        self.coffee_shop.sell_drink(self.customer, self.drink)
-        result = self.coffee_shop.sell_drink(self.customer2, self.drink)
+        self.coffee_shop.sell_drink(self.customer, self.drink1)
+        result = self.coffee_shop.sell_drink(self.customer2, self.drink1)
         self.assertEqual(110, self.coffee_shop.till)
         self.assertEqual(15, self.customer.wallet)
         self.assertEqual("Customer is underage", result)
@@ -45,3 +48,11 @@ class TestCoffeeShop(unittest.TestCase):
         result2 = self.coffee_shop.energy_check(self.customer2)
         self.assertEqual(True, result1)
         self.assertEqual(False, result2)
+
+    def test_drink_stock(self):
+        result = self.coffee_shop.drink_names()
+        self.assertEqual(self.coffee_shop.drink_stock, result)
+
+    def test_drinks_customer_can_afford(self):
+        result = self.coffee_shop.drinks_customer_can_afford(self.customer)
+        self.assertEqual([], result)
